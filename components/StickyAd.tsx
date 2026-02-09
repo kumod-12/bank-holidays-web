@@ -18,7 +18,7 @@ export function StickyAd() {
 
   return (
     <div className="fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-200 shadow-lg">
-      <div className="max-w-4xl mx-auto px-4 py-1">
+      <div className="max-w-4xl mx-auto px-4 py-1 h-[50px] sm:h-auto">
         <ins
           className="adsbygoogle"
           style={{ display: 'block' }}
