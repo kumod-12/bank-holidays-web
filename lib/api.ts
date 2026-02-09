@@ -61,7 +61,7 @@ export async function getHolidayBySlug(
       `${API_URL}/holidays?${queryParams}`,
       {
         next: { revalidate: 7200 }, // Revalidate every 2 hours
-        cache: 'no-store',
+        cache: 'default',
         // Add keepalive for faster connections
         keepalive: true,
       }
@@ -121,7 +121,7 @@ export async function getHolidaysByCountryYear(
       `${API_URL}/holidays?where[and][0][country.code][equals]=${countryCode}&where[and][1][year][equals]=${year}&depth=2&limit=100`,
       {
         next: { revalidate: 7200 }, // Revalidate every 2 hours
-        cache: 'no-store',
+        cache: 'default',
       }
     );
 
@@ -191,7 +191,7 @@ export async function getAllHolidaysByYear(year: number): Promise<Holiday[]> {
       `${API_URL}/holidays?where[year][equals]=${year}&depth=2&limit=500&sort=date`,
       {
         next: { revalidate: 7200 }, // Revalidate every 2 hours
-        cache: 'no-store',
+        cache: 'default',
       }
     );
 
@@ -219,7 +219,7 @@ export async function getHolidaysByDateRange(
       `${API_URL}/holidays?where[and][0][date][greater_than_equal]=${startDate}&where[and][1][date][less_than_equal]=${endDate}&depth=2&limit=200&sort=date`,
       {
         next: { revalidate: 7200 }, // Revalidate every 2 hours (holidays don't change often)
-        cache: 'no-store',
+        cache: 'default',
       }
     );
 
@@ -244,7 +244,7 @@ export async function getFooter(): Promise<Footer | null> {
       `${API_URL}/footer?where[isActive][equals]=true&limit=1`,
       {
         next: { revalidate: 86400 }, // Revalidate once per day
-        cache: 'no-store', // Force cache to ensure consistency
+        cache: 'default', // Force cache to ensure consistency
       }
     );
 
@@ -276,7 +276,7 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
       `${API_URL}/pages?where[slug][equals]=${slug}&where[published][equals]=true&limit=1`,
       {
         next: { revalidate: 86400 }, // Revalidate once per day
-        cache: 'no-store',
+        cache: 'default',
       }
     );
 

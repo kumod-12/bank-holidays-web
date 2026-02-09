@@ -16,14 +16,7 @@ interface CountryPageProps {
   }>;
 }
 
-// Generate static params for all countries
-export async function generateStaticParams() {
-  const countries = await getCountries();
-
-  return countries.map((country) => ({
-    country: country.slug,
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 // Generate metadata for SEO
 export async function generateMetadata({

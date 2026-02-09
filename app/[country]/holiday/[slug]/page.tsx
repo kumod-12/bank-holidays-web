@@ -31,15 +31,7 @@ interface HolidayPageProps {
   }>;
 }
 
-// Generate static params for all holidays
-export async function generateStaticParams() {
-  const slugs = await getAllHolidaySlugs();
-
-  return slugs.map((slug) => ({
-    slug,
-    country: 'temp', // Will be determined dynamically
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 /**
  * Clean legacy slug format to new format

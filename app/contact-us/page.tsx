@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { generatePageMetadata } from '@/lib/page-metadata';
 import { notFound } from 'next/navigation';
 import { getPageBySlug } from '@/lib/api';

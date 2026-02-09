@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 /**
  * Long Weekend Page
  * URL: /long-weekend/
