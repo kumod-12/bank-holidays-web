@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { getCountries, getHolidaysByDateRange } from '@/lib/api';
 import { formatDate, getDayOfWeek, getCountryName } from '@/lib/utils';
 
-// Enable ISR with revalidation
-export const revalidate = 3600; // Revalidate every hour
+// Force dynamic rendering (no caching)
+export const dynamic = 'force-dynamic';
 
 // Reduce runtime chunk for faster initial load
 export const runtime = 'nodejs';
