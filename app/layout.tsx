@@ -5,6 +5,7 @@ import { getFooter } from '@/lib/api';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { InstallPrompt } from '@/components/InstallPrompt';
+import { StickyAd } from '@/components/StickyAd';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -101,6 +102,12 @@ export default async function RootLayout({
             `,
           }}
         />
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243677965278567"
+          crossOrigin="anonymous"
+        />
         {/* Preconnect to API for faster data fetching */}
         <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'} />
         <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'} />
@@ -110,6 +117,7 @@ export default async function RootLayout({
         <Header />
         {children}
         <Footer footer={footer} />
+        <StickyAd />
         <InstallPrompt />
       </body>
     </html>
