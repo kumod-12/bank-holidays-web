@@ -7,9 +7,8 @@ import Link from 'next/link';
 import { getCountries, getHolidaysByDateRange } from '@/lib/api';
 import { formatDate, getDayOfWeek, getCountryName } from '@/lib/utils';
 
-// Enable static generation with revalidation
-export const revalidate = 7200; // Revalidate every 2 hours
-export const dynamic = 'force-static'; // Force static generation
+// Enable ISR with revalidation
+export const revalidate = 3600; // Revalidate every hour
 
 // Reduce runtime chunk for faster initial load
 export const runtime = 'nodejs';
