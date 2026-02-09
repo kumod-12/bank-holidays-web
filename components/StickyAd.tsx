@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export function StickyAd() {
-  const adRef = useRef<HTMLModElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const pushed = useRef(false);
   const [adLoaded, setAdLoaded] = useState(false);
 
@@ -16,37 +16,31 @@ export function StickyAd() {
       // AdSense not loaded yet
     }
 
-    // Check if ad has content after a delay
-    const timer = setTimeout(() => {
-      if (adRef.current && adRef.current.offsetHeight > 0) {
-        setAdLoaded(true);
-      }
-    }, 2000);
-
-    // Also observe for changes
+    // Watch for AdSense injecting an iframe (means ad is actually served)
     const observer = new MutationObserver(() => {
-      if (adRef.current && adRef.current.offsetHeight > 0) {
-        setAdLoaded(true);
+      if (containerRef.current) {
+        const iframe = containerRef.current.querySelector('iframe');
+        if (iframe) {
+          setAdLoaded(true);
+          observer.disconnect();
+        }
       }
     });
 
-    if (adRef.current) {
-      observer.observe(adRef.current, { childList: true, subtree: true, attributes: true });
+    if (containerRef.current) {
+      observer.observe(containerRef.current, { childList: true, subtree: true });
     }
 
-    return () => {
-      clearTimeout(timer);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
-      className={`fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-200 shadow-lg transition-transform ${
-        adLoaded ? 'translate-y-0' : 'translate-y-full'
-      }`}
+      ref={containerRef}
+      className="fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-200 shadow-lg"
+      style={{ display: adLoaded ? 'block' : 'none' }}
     >
-      <div className="max-w-4xl mx-auto px-4 py-1 h-[50px] sm:h-auto">
+      <div className="max-w-4xl mx-auto px-4 py-1 h-[50px] sm:h-auto overflow-hidden">
         <ins
           className="adsbygoogle"
           style={{ display: 'block' }}
@@ -54,7 +48,6 @@ export function StickyAd() {
           data-ad-slot="auto"
           data-ad-format="horizontal"
           data-full-width-responsive="true"
-          ref={adRef}
         />
       </div>
     </div>
